@@ -1,4 +1,4 @@
-# 🌿 Dejaa'sNet — AI Plant Disease Detection System
+# 🌿 Dejaa'sNet — Plant Disease Detection System
 
 A full-stack web application for detecting plant diseases using a Convolutional Neural Network (CNN) built on **EfficientNet-B0**. Upload a photo of a plant leaf and get instant disease diagnosis with treatment recommendations.
 
