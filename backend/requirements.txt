@@ -3,6 +3,6 @@ uvicorn[standard]
 python-multipart
 pillow
 numpy
-tensorflow
+tensorflow==2.18.0
 pydantic
 pydantic-settings
