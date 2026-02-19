@@ -20,7 +20,6 @@ An AI-powered diagnostic tool that helps farmers, agronomists, and agricultural 
 - [Supported Crops and Diseases](#supported-crops-and-diseases)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
 - [API Reference](#api-reference)
 - [Model Details](#model-details)
 - [Deployment](#deployment)
@@ -158,47 +157,6 @@ DejaasNet/
         └── services/
             └── api.js                # API client
 ```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Python 3.10 or higher
-- Node.js 18 or higher
-- npm
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/<your-username>/DejaasNet.git
-cd DejaasNet
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-pip install -r requirements.txt
-python main.py
-```
-
-The API server will start at `http://localhost:8000`. Interactive documentation is available at `http://localhost:8000/docs`.
-
-### 3. Frontend Setup
-
-```bash
-cd Frontend
-npm install
-npm run dev
-```
-
-The frontend development server will start at `http://localhost:5173`.
-
-### 4. Verify
-
-Open `http://localhost:5173` in your browser. Ensure the backend is running before uploading images for analysis.
 
 ---
 
