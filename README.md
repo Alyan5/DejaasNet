@@ -1,137 +1,173 @@
-# 🌿 Dejaa'sNet — Plant Disease Detection System
+# Dejaa'sNet — Plant Disease Detection System
 
-A full-stack web application for detecting plant diseases using a Convolutional Neural Network (CNN) built on **EfficientNet-B0**. Upload a photo of a plant leaf and get instant disease diagnosis with treatment recommendations.
+An AI-powered diagnostic tool that helps farmers, agronomists, and agricultural stakeholders identify plant diseases early through leaf image analysis. Built with a Convolutional Neural Network (EfficientNet-B0), Dejaa'sNet delivers instant, accurate disease classification along with actionable treatment recommendations — reducing crop losses and supporting informed decision-making in the field.
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?logo=tensorflow&logoColor=white)
+**Live Demo:** [https://dejaas-net.vercel.app](https://dejaas-net.vercel.app)
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18-orange?logo=tensorflow&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Features](#-features)
-- [Architecture](#-architecture)
-- [Supported Crops & Diseases](#-supported-crops--diseases)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [API Documentation](#-api-documentation)
-- [Model Details](#-model-details)
-- [Screenshots](#-screenshots)
-- [Tech Stack](#-tech-stack)
-- [License](#-license)
-
----
-
-## ✨ Features
-
-- **Real-time Disease Detection** — Upload a leaf image and get predictions in seconds
-- **17 Disease Classes** — Covers Apple, Tomato, and Potato diseases
-- **Treatment Recommendations** — Detailed symptoms, causes, treatment, and prevention info
-- **Invalid Image Detection** — Warns users when non-leaf images are uploaded (confidence < 20%)
-- **Disease Library** — Browse all supported diseases with comprehensive information
-- **Responsive Design** — Works seamlessly on desktop, tablet, and mobile
-- **Professional UI** — Dark-themed navbar, smooth animations, intuitive UX
+- [The Problem](#the-problem)
+- [How Dejaa'sNet Helps](#how-dejaasnet-helps)
+- [Features](#features)
+- [Supported Crops and Diseases](#supported-crops-and-diseases)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Reference](#api-reference)
+- [Model Details](#model-details)
+- [Deployment](#deployment)
+- [Tech Stack](#tech-stack)
+- [License](#license)
 
 ---
 
-## 🧬 Architecture
+## The Problem
 
-**Dejaa'sNet** is built on the EfficientNet-B0 backbone with custom classification layers:
+Plant diseases are one of the leading causes of agricultural yield loss worldwide. According to the Food and Agriculture Organization (FAO), plant diseases cost the global economy over **$220 billion annually**, and up to **40% of global crop production** is lost to pests and diseases each year.
 
-```
-Input Image (224×224×3)
-    ↓
-EfficientNet-B0 (Feature Extraction)
-    ↓
-Global Average Pooling
-    ↓
-Dense + Dropout
-    ↓
-Softmax (17 classes)
-```
+The challenge is particularly severe for:
 
-**Preprocessing Pipeline:**
-1. Convert to RGB (force 3 channels)
-2. Resize to 224×224 using LANCZOS interpolation
-3. Convert to float32
-4. Add batch dimension → shape `(1, 224, 224, 3)`
+- **Smallholder farmers** who lack access to plant pathologists or laboratory diagnostics and often rely on visual guesswork, leading to misdiagnosis and ineffective treatment.
+- **Remote and underserved regions** where agricultural extension services are limited, leaving farmers without timely expert advice during critical growing seasons.
+- **Large-scale operations** where manual scouting across vast acreage is slow and expensive, allowing diseases to spread unchecked before they are identified.
+
+Late or inaccurate diagnosis leads to unnecessary pesticide use, increased costs, environmental damage, and ultimately food insecurity.
 
 ---
 
-## 🌱 Supported Crops & Diseases
+## How Dejaa'sNet Helps
+
+Dejaa'sNet addresses these challenges by putting a trained plant pathology model directly into the hands of anyone with a smartphone or computer:
+
+- **Early Detection:** Identifies diseases from leaf images before visible damage escalates, giving farmers a critical window to act.
+- **Accessible Expertise:** Provides diagnostic capability equivalent to a trained agronomist, available 24/7 without the need for physical lab access or specialist consultations.
+- **Actionable Guidance:** Goes beyond identification — each diagnosis includes detailed symptoms, root causes, recommended treatments, and prevention strategies tailored to the specific disease.
+- **Cost Reduction:** Helps avoid blanket pesticide application by pinpointing the exact disease, reducing input costs and minimizing environmental impact.
+- **Scalable Impact:** A single deployment can serve thousands of users simultaneously, making it viable for agricultural cooperatives, government extension programs, and NGOs working in food security.
+
+Whether you are a farmer inspecting a few plants in the field, an agronomist advising clients remotely, or a researcher studying disease prevalence, Dejaa'sNet provides fast, reliable, and practical diagnostic support.
+
+---
+
+## Features
+
+- **Real-time Disease Detection** — Upload a leaf image and receive a diagnosis within seconds.
+- **17 Disease Classes** — Covers diseases across Apple, Tomato, and Potato crops, including healthy leaf identification.
+- **Treatment Recommendations** — Each prediction is accompanied by detailed information on symptoms, causes, treatment options, and prevention measures.
+- **Confidence Thresholding** — Flags low-confidence predictions when non-leaf or ambiguous images are uploaded, preventing false diagnoses.
+- **Disease Library** — A searchable reference of all supported diseases with comprehensive agricultural information.
+- **Responsive Interface** — Fully functional on desktop, tablet, and mobile devices for use in the office or in the field.
+
+---
+
+## Supported Crops and Diseases
 
 | Crop | Diseases | Classes |
 |------|----------|---------|
-| 🍎 **Apple** | Apple Scab, Black Rot, Cedar Apple Rust, Healthy | 4 |
-| 🥔 **Potato** | Early Blight, Late Blight, Healthy | 3 |
-| 🍅 **Tomato** | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy | 10 |
+| **Apple** | Apple Scab, Black Rot, Cedar Apple Rust, Healthy | 4 |
+| **Potato** | Early Blight, Late Blight, Healthy | 3 |
+| **Tomato** | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy | 10 |
 
 **Total: 17 classes across 3 crop types**
 
+The model is trained on the PlantVillage dataset and can be extended to support additional crops and diseases as training data becomes available.
+
 ---
 
-## 📁 Project Structure
+## Architecture
+
+Dejaa'sNet uses the EfficientNet-B0 backbone with custom classification layers optimized for leaf disease recognition:
 
 ```
-CNN/
+Input Image (224 x 224 x 3)
+    |
+EfficientNet-B0 (Feature Extraction)
+    |
+Global Average Pooling
+    |
+Dense + Dropout (Regularization)
+    |
+Softmax Output (17 classes)
+```
+
+**Preprocessing Pipeline:**
+1. Convert to RGB (3 channels)
+2. Resize to 224 x 224 using LANCZOS interpolation
+3. Normalize to float32
+4. Reshape to batch format (1, 224, 224, 3)
+
+---
+
+## Project Structure
+
+```
+DejaasNet/
 ├── README.md
+├── LICENSE
 ├── backend/
-│   ├── main.py                  # Entry point — runs uvicorn server
-│   ├── requirements.txt         # Python dependencies
+│   ├── main.py                       # Application entry point
+│   ├── requirements.txt              # Python dependencies
+│   ├── .python-version               # Python version for deployment
 │   └── app/
-│       ├── __init__.py          # FastAPI app factory
+│       ├── __init__.py               # FastAPI app factory with CORS
 │       ├── api/
-│       │   ├── router.py        # API route registry
+│       │   ├── router.py             # API route registry
 │       │   └── routes/
-│       │       ├── health.py    # Health check endpoint
-│       │       └── prediction.py # Prediction endpoint
+│       │       ├── health.py         # Health check endpoint
+│       │       └── prediction.py     # Prediction endpoint
 │       ├── core/
-│       │   └── config.py        # App settings
+│       │   └── config.py             # Application settings
 │       ├── models/
-│       │   ├── cnn_model.py     # Model loading & inference
+│       │   ├── cnn_model.py          # Model loading and inference
 │       │   └── saved_models/
-│       │       └── disease_model.keras  # Trained model weights
+│       │       └── disease_model.keras
 │       ├── schemas/
-│       │   └── prediction.py    # Pydantic response schemas
+│       │   └── prediction.py         # Response schemas
 │       ├── services/
-│       │   └── prediction_service.py  # Prediction logic
+│       │   └── prediction_service.py # Prediction business logic
 │       └── utils/
-│           └── preprocessing.py # Image preprocessing
+│           └── preprocessing.py      # Image preprocessing pipeline
 │
 └── Frontend/
     ├── index.html
     ├── package.json
     ├── vite.config.js
+    ├── .env.production               # Production API URL
     └── src/
-        ├── App.jsx              # Main app with routing
-        ├── App.css              # All styles
-        ├── main.jsx             # React entry point
+        ├── App.jsx                   # Main application component
+        ├── App.css                   # Application styles
+        ├── main.jsx                  # React entry point
         ├── components/
-        │   ├── Navbar.jsx       # Navigation bar
-        │   ├── Hero.jsx         # Landing hero section
-        │   ├── UploadSection.jsx # Image upload & analysis
-        │   ├── ResultCard.jsx   # Disease result display
-        │   ├── DiseaseLibrary.jsx # Disease browser
-        │   ├── About.jsx        # About page
-        │   └── Footer.jsx       # Footer
+        │   ├── Navbar.jsx            # Navigation
+        │   ├── Hero.jsx              # Landing section
+        │   ├── UploadSection.jsx     # Image upload and analysis
+        │   ├── ResultCard.jsx        # Diagnosis result display
+        │   ├── DiseaseLibrary.jsx    # Disease reference browser
+        │   ├── About.jsx             # About section
+        │   └── Footer.jsx            # Footer
         ├── data/
-        │   └── diseaseInfo.js   # Disease database (17 classes)
+        │   └── diseaseInfo.js        # Disease information database
         └── services/
-            └── api.js           # Axios API client
+            └── api.js                # API client
 ```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- **Python 3.10+**
-- **Node.js 18+**
-- **npm** or **yarn**
+- Python 3.10 or higher
+- Node.js 18 or higher
+- npm
 
 ### 1. Clone the Repository
 
@@ -148,7 +184,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-The API server starts at `http://localhost:8000`
+The API server will start at `http://localhost:8000`. Interactive documentation is available at `http://localhost:8000/docs`.
 
 ### 3. Frontend Setup
 
@@ -158,37 +194,32 @@ npm install
 npm run dev
 ```
 
-The frontend starts at `http://localhost:5173`
+The frontend development server will start at `http://localhost:5173`.
 
-### 4. Open the App
+### 4. Verify
 
-Visit `http://localhost:5173` in your browser. Make sure the backend is running first.
+Open `http://localhost:5173` in your browser. Ensure the backend is running before uploading images for analysis.
 
 ---
 
-## 📡 API Documentation
-
-Once the backend is running, interactive API docs are available at:
-
-- **Swagger UI:** `http://localhost:8000/docs`
-- **ReDoc:** `http://localhost:8000/redoc`
+## API Reference
 
 ### Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/predict/` | Upload an image and get disease prediction |
-| `GET` | `/api/health` | Health check |
+| `POST` | `/api/predict/` | Upload a leaf image for disease classification |
+| `GET` | `/api/health` | Service health check |
 
-### Example Request
+### Prediction Request
 
 ```bash
-curl -X POST "http://localhost:8000/api/predict/" \
+curl -X POST "https://dejaasnet.onrender.com/api/predict/" \
   -H "Content-Type: multipart/form-data" \
   -F "file=@leaf_image.jpg"
 ```
 
-### Example Response
+### Prediction Response
 
 ```json
 {
@@ -200,48 +231,58 @@ curl -X POST "http://localhost:8000/api/predict/" \
 }
 ```
 
+Full interactive API documentation (Swagger UI) is available at the `/docs` endpoint of the backend.
+
 ---
 
-## 🧠 Model Details
+## Model Details
 
 | Property | Value |
 |----------|-------|
-| **Architecture** | EfficientNet-B0 + Custom Head |
-| **Input Size** | 224 × 224 × 3 |
-| **Output** | 17 softmax classes |
+| **Architecture** | EfficientNet-B0 + Custom Classification Head |
+| **Input Size** | 224 x 224 x 3 |
+| **Output** | 17-class softmax |
 | **Framework** | TensorFlow / Keras |
 | **Model Format** | `.keras` |
-| **Accuracy** | ~95% on test set |
+| **Test Accuracy** | ~95% |
+| **Training Data** | PlantVillage Dataset |
 
 ---
 
-## 🖼️ Screenshots
+## Deployment
 
-> Upload leaf images and get instant AI diagnosis with treatment recommendations.
+The application is deployed as two independent services:
+
+| Component | Platform | URL |
+|-----------|----------|-----|
+| **Frontend** | Vercel | [https://dejaas-net.vercel.app](https://dejaas-net.vercel.app) |
+| **Backend API** | Render | [https://dejaasnet.onrender.com](https://dejaasnet.onrender.com) |
+
+**Note:** The backend runs on Render's free tier, which spins down after periods of inactivity. The first request after inactivity may take up to 50 seconds while the service restarts.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Backend:**
 - Python, FastAPI, Uvicorn
-- TensorFlow / Keras
+- TensorFlow / Keras (EfficientNet-B0)
 - Pillow, NumPy
 - Pydantic
 
 **Frontend:**
 - React 19, Vite 7
 - Axios
-- CSS3 (custom, no framework)
+- CSS3
 
 ---
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
 <p align="center">
-  Built with ❤️ by <strong>Dejaa</strong> — Powered by EfficientNet-B0 Deep Learning
+  Built by <strong>Dejaa</strong> — Powered by Deep Learning for Agriculture
 </p>

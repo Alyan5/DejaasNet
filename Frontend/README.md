@@ -1,16 +1,64 @@
-# React + Vite
+# Dejaa'sNet Frontend — React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The user-facing interface for Dejaa'sNet. Provides image upload, real-time disease diagnosis display, a disease reference library, and project information. Communicates with the FastAPI backend for predictions.
 
-Currently, two official plugins are available:
+**Deployed at:** [https://dejaas-net.vercel.app](https://dejaas-net.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
 
-## React Compiler
+```bash
+# Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Start the development server
+npm run dev
 
-## Expanding the ESLint configuration
+# Build for production
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The development server runs at `http://localhost:5173`.
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_API_URL` | Backend API base URL | `http://localhost:8000/api` |
+
+For production builds, set this in a `.env.production` file or in your deployment platform's environment settings.
+
+## Project Structure
+
+```
+Frontend/
+├── index.html
+├── package.json
+├── vite.config.js
+├── .env.production              # Production API URL
+└── src/
+    ├── App.jsx                  # Main application component
+    ├── App.css                  # Application styles
+    ├── main.jsx                 # React entry point
+    ├── components/
+    │   ├── Navbar.jsx           # Navigation bar
+    │   ├── Hero.jsx             # Landing section
+    │   ├── UploadSection.jsx    # Image upload and analysis trigger
+    │   ├── ResultCard.jsx       # Diagnosis result display
+    │   ├── DiseaseLibrary.jsx   # Searchable disease reference
+    │   ├── About.jsx            # About section
+    │   └── Footer.jsx           # Footer
+    ├── data/
+    │   └── diseaseInfo.js       # Disease information database (17 classes)
+    └── services/
+        └── api.js               # Axios client for backend communication
+```
+
+## Deployment
+
+Deployed on Vercel with the following configuration:
+
+- **Framework Preset:** Vite
+- **Root Directory:** `Frontend`
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+- **Environment Variable:** `VITE_API_URL` = `https://dejaasnet.onrender.com/api`
