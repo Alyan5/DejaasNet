@@ -25,7 +25,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
             <span className="navbar__logo-icon">🌿</span>
             <span className="navbar__logo-text">Dejaa'sNet</span>
           </div>
-          <span className="navbar__tagline">AI Plant Pathologist</span>
+          <span className="navbar__tagline">Plant Pathologist</span>
         </div>
 
         <div className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
