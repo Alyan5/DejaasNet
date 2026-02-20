@@ -200,7 +200,7 @@ Full interactive API documentation (Swagger UI) is available at the `/docs` endp
 **Backend:**
 - Python, FastAPI, Uvicorn
 - TensorFlow / Keras (DenseNet-121)
-- Pillow, NumPy
+- OpenCV, NumPy
 - Pydantic
 
 **Frontend:**
