@@ -64,6 +64,7 @@ const UploadSection = () => {
 
     try {
       const data = await predictDisease(selectedFile);
+      console.log('API Response:', JSON.stringify(data));
       if (!data.is_normal && data.confidence < 0.75) {
         setResult({ _lowConfidence: true });
       } else {
