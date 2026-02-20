@@ -64,7 +64,11 @@ const UploadSection = () => {
 
     try {
       const data = await predictDisease(selectedFile);
-      setResult(data);
+      if (data.confidence < 0.5) {
+        setResult({ _lowConfidence: true });
+      } else {
+        setResult(data);
+      }
     } catch (err) {
       const message = err.response?.data?.detail || err.message || 'Analysis failed. Please try again.';
       setError(message);
@@ -185,7 +189,25 @@ const UploadSection = () => {
           </div>
 
           <div className="upload-section__right">
-            {result ? (
+            {result && result._lowConfidence ? (
+              <div className="upload-section__low-confidence">
+                <div className="upload-section__low-confidence-icon">⚠️</div>
+                <h3>Inappropriate Image</h3>
+                <p>The uploaded image does not appear to be a valid chest X-ray. The model could not make a confident diagnosis.</p>
+                <div className="upload-section__low-confidence-tips">
+                  <h4>Please try again with:</h4>
+                  <ul>
+                    <li>A clear, standard PA chest X-ray image</li>
+                    <li>Proper orientation (not rotated or cropped)</li>
+                    <li>Good contrast and resolution</li>
+                    <li>No CT scans, MRIs, or non-chest images</li>
+                  </ul>
+                </div>
+                <button className="btn btn--primary" onClick={handleReset}>
+                  <span>🔄</span> Upload Another Image
+                </button>
+              </div>
+            ) : result ? (
               <ResultCard result={result} onReset={handleReset} />
             ) : (
               <div className="upload-section__placeholder-result">

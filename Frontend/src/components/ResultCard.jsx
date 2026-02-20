@@ -35,14 +35,8 @@ const ResultCard = ({ result, onReset }) => {
           </div>
         </div>
 
-        {/* Confidence & Risk */}
+        {/* Risk Level */}
         <div className="result-card__metrics">
-          <div className="result-card__metric">
-            <span className="result-card__metric-label">Confidence</span>
-            <span className="result-card__severity-badge" style={{ backgroundColor: riskColor }}>
-              {confidencePercent}%
-            </span>
-          </div>
           <div className="result-card__metric">
             <span className="result-card__metric-label">Risk Level</span>
             <span className="result-card__severity-badge" style={{ backgroundColor: riskColor }}>
