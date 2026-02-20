@@ -6,12 +6,12 @@ const ResultCard = ({ result, onReset }) => {
 
   const getRiskColor = (risk) => {
     switch (risk) {
-      case 'Low': return '#22c55e';
-      case 'Low-Moderate': return '#84cc16';
-      case 'Moderate': return '#eab308';
-      case 'Moderate-High': return '#f97316';
-      case 'High': return '#ef4444';
-      default: return '#6b7280';
+      case 'Low': return '#10B981';
+      case 'Low-Moderate': return '#22C55E';
+      case 'Moderate': return '#F59E0B';
+      case 'Moderate-High': return '#F97316';
+      case 'High': return '#EF4444';
+      default: return '#64748B';
     }
   };
 
