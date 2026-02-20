@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import UploadSection from './components/UploadSection';
-import DiseaseLibrary from './components/DiseaseLibrary';
+import PneumoniaInfo from './components/DiseaseLibrary';
 import About from './components/About';
 import Footer from './components/Footer';
 import './App.css';
@@ -21,8 +21,8 @@ function App() {
         );
       case 'diagnose':
         return <UploadSection />;
-      case 'diseases':
-        return <DiseaseLibrary />;
+      case 'info':
+        return <PneumoniaInfo />;
       case 'about':
         return <About />;
       default:

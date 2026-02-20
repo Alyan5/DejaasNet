@@ -12,8 +12,8 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
 
   const navLinks = [
     { id: 'home', label: 'Home', icon: '🏠' },
-    { id: 'diagnose', label: 'Diagnose', icon: '🔬' },
-    { id: 'diseases', label: 'Disease Library', icon: '📚' },
+    { id: 'diagnose', label: 'Scan X-Ray', icon: '🩻' },
+    { id: 'info', label: 'About Pneumonia', icon: '📖' },
     { id: 'about', label: 'About', icon: 'ℹ️' },
   ];
 
@@ -22,10 +22,10 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
       <div className="navbar__container">
         <div className="navbar__brand" onClick={() => setCurrentPage('home')}>
           <div className="navbar__logo">
-            <span className="navbar__logo-icon">🌿</span>
+            <span className="navbar__logo-icon">🏥</span>
             <span className="navbar__logo-text">Dejaa'sNet</span>
           </div>
-          <span className="navbar__tagline">Plant Pathologist</span>
+          <span className="navbar__tagline">Pneumonia Detection</span>
         </div>
 
         <div className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>

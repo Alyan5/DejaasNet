@@ -64,13 +64,9 @@ const UploadSection = () => {
 
     try {
       const data = await predictDisease(selectedFile);
-      if (data.confidence < 0.20) {
-        setResult({ lowConfidence: true });
-      } else {
-        setResult(data);
-      }
+      setResult(data);
     } catch (err) {
-      const message = err.response?.data?.detail || err.message || 'Prediction failed. Please try again.';
+      const message = err.response?.data?.detail || err.message || 'Analysis failed. Please try again.';
       setError(message);
     } finally {
       setLoading(false);
@@ -89,11 +85,11 @@ const UploadSection = () => {
     <section className="upload-section" id="diagnose">
       <div className="upload-section__container">
         <div className="upload-section__header">
-          <span className="upload-section__icon">🔬</span>
-          <h2 className="upload-section__title">Plant Disease Diagnosis</h2>
+          <span className="upload-section__icon">🩻</span>
+          <h2 className="upload-section__title">Chest X-Ray Analysis</h2>
           <p className="upload-section__desc">
-            Upload a clear photo of the affected plant leaf. Our Dejaa'sNet AI model will analyze 
-            the image and provide a diagnosis with treatment recommendations.
+            Upload a chest X-ray image for AI-powered pneumonia screening. Dejaa'sNet will analyze 
+            the image and provide a diagnosis with confidence level and recommendations.
           </p>
         </div>
 
@@ -118,7 +114,7 @@ const UploadSection = () => {
 
               {preview ? (
                 <div className="upload-zone__preview">
-                  <img src={preview} alt="Selected leaf" className="upload-zone__image" />
+                  <img src={preview} alt="Selected X-ray" className="upload-zone__image" />
                   <div className="upload-zone__overlay">
                     <span className="upload-zone__filename">{selectedFile?.name}</span>
                     <span className="upload-zone__filesize">
@@ -129,9 +125,9 @@ const UploadSection = () => {
               ) : (
                 <div className="upload-zone__placeholder">
                   <div className="upload-zone__icon-wrapper">
-                    <span className="upload-zone__upload-icon">🌿</span>
+                    <span className="upload-zone__upload-icon">🩻</span>
                   </div>
-                  <h3>Drop your leaf image here</h3>
+                  <h3>Drop your chest X-ray here</h3>
                   <p>or click to browse files</p>
                   <span className="upload-zone__formats">Supports: JPEG, PNG, WebP (max 10MB)</span>
                 </div>
@@ -162,7 +158,7 @@ const UploadSection = () => {
                   </>
                 ) : (
                   <>
-                    <span>🧠</span> Analyze with Dejaa'sNet
+                    <span>🧠</span> Analyze X-Ray
                   </>
                 )}
               </button>
@@ -180,42 +176,25 @@ const UploadSection = () => {
             <div className="upload-section__tips">
               <h4>📋 Tips for Best Results</h4>
               <ul>
-                <li>Use clear, well-lit photos of individual leaves</li>
-                <li>Ensure the affected area is clearly visible</li>
-                <li>Avoid blurry or dark images</li>
-                <li>Supported plants: Apple, Tomato, Potato</li>
+                <li>Use standard PA (posteroanterior) chest X-ray images</li>
+                <li>Ensure the image is clear and not rotated</li>
+                <li>Avoid uploading CT scans, MRIs, or non-chest images</li>
+                <li>Higher resolution images produce more reliable results</li>
               </ul>
             </div>
           </div>
 
           <div className="upload-section__right">
-            {result && result.lowConfidence ? (
-              <div className="upload-section__low-confidence">
-                <div className="upload-section__low-confidence-icon">🚫</div>
-                <h3>Invalid Image Detected</h3>
-                <p>The uploaded image does not appear to be a valid plant leaf. Please try again with a clear photo of an affected leaf.</p>
-                <div className="upload-section__low-confidence-tips">
-                  <h4>What to do:</h4>
-                  <ul>
-                    <li>Make sure the image is of a plant leaf (Apple, Tomato, or Potato)</li>
-                    <li>Use a clear, well-lit, close-up photo</li>
-                    <li>Avoid uploading random or unrelated images</li>
-                  </ul>
-                </div>
-                <button className="btn btn--primary btn--sm" onClick={handleReset}>
-                  <span>🔄</span> Try Again
-                </button>
-              </div>
-            ) : result ? (
+            {result ? (
               <ResultCard result={result} onReset={handleReset} />
             ) : (
               <div className="upload-section__placeholder-result">
-                <div className="upload-section__placeholder-icon">🌱</div>
+                <div className="upload-section__placeholder-icon">🏥</div>
                 <h3>Awaiting Analysis</h3>
-                <p>Upload an image and click "Analyze" to get your plant disease diagnosis powered by Dejaa'sNet architecture.</p>
+                <p>Upload a chest X-ray image and click "Analyze" to get your pneumonia screening result powered by Dejaa'sNet AI.</p>
                 <div className="upload-section__arch-info">
                   <h4>🧬 About Dejaa'sNet Architecture</h4>
-                  <p>Built on EfficientNet-B0 backbone with custom classification layers, trained on thousands of plant leaf images for accurate disease detection.</p>
+                  <p>Built on DenseNet-121 backbone with custom classification layers, trained on thousands of chest X-ray images for accurate pneumonia detection.</p>
                 </div>
               </div>
             )}

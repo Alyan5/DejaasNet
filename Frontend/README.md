@@ -1,8 +1,6 @@
 # Dejaa'sNet Frontend — React + Vite
 
-The user-facing interface for Dejaa'sNet. Provides image upload, real-time disease diagnosis display, a disease reference library, and project information. Communicates with the FastAPI backend for predictions.
-
-**Deployed at:** [https://dejaas-net.vercel.app](https://dejaas-net.vercel.app)
+The user-facing interface for Dejaa'sNet. Provides chest X-ray upload, real-time pneumonia diagnosis display, a pneumonia information reference, and project details. Communicates with the FastAPI backend for predictions.
 
 ## Setup
 
@@ -42,13 +40,11 @@ Frontend/
     ├── components/
     │   ├── Navbar.jsx           # Navigation bar
     │   ├── Hero.jsx             # Landing section
-    │   ├── UploadSection.jsx    # Image upload and analysis trigger
+    │   ├── UploadSection.jsx    # X-ray upload and analysis
     │   ├── ResultCard.jsx       # Diagnosis result display
-    │   ├── DiseaseLibrary.jsx   # Searchable disease reference
+    │   ├── DiseaseLibrary.jsx   # Pneumonia information reference
     │   ├── About.jsx            # About section
     │   └── Footer.jsx           # Footer
-    ├── data/
-    │   └── diseaseInfo.js       # Disease information database (17 classes)
     └── services/
         └── api.js               # Axios client for backend communication
 ```

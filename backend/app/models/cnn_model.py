@@ -1,52 +1,40 @@
 import numpy as np
 from tensorflow import keras
-from tensorflow.keras.applications.efficientnet import preprocess_input
 from pathlib import Path
 from app.core.config import settings
 
-# Class labels matching the training dataset (alphabetical order from image_dataset_from_directory)
-CLASS_LABELS = [
-    "Apple___Apple_scab",
-    "Apple___Black_rot",
-    "Apple___Cedar_apple_rust",
-    "Apple___healthy",
-    "Potato___Early_blight",
-    "Potato___Late_blight",
-    "Potato___healthy",
-    "Tomato___Bacterial_spot",
-    "Tomato___Early_blight",
-    "Tomato___Late_blight",
-    "Tomato___Leaf_Mold",
-    "Tomato___Septoria_leaf_spot",
-    "Tomato___Spider_mites Two-spotted_spider_mite",
-    "Tomato___Target_Spot",
-    "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
-    "Tomato___Tomato_mosaic_virus",
-    "Tomato___healthy",
-]
+# Binary classification labels
+CLASS_LABELS = ["NORMAL", "PNEUMONIA"]
 
 
 # ── Load model once at module level ──
-model_path = Path(settings.MODEL_PATH) / "disease_model.keras"
+model_path = Path(settings.MODEL_PATH) / "chest_check.keras"
 
 if model_path.exists():
-    model = keras.models.load_model(
-        str(model_path),
-        custom_objects={"preprocess_input": preprocess_input},
-    )
+    model = keras.models.load_model(str(model_path))
 else:
     model = None
 
 
 def predict(image_array: np.ndarray):
-    """Run inference on a preprocessed image array (1, 224, 224, 3)."""
+    """Run inference on a preprocessed X-ray image array (1, 224, 224, 3).
+    
+    The model uses sigmoid activation (binary classification).
+    Output is a single value between 0 and 1:
+      - Close to 0 → NORMAL
+      - Close to 1 → PNEUMONIA
+    """
     if model is None:
         return ("no_model_loaded", 0.0)
 
-    predictions = model.predict(image_array, verbose=0)
-    predicted_index = int(np.argmax(predictions[0]))
-    confidence = float(np.max(predictions[0]))
+    prediction = model.predict(image_array, verbose=0)
+    probability = float(prediction[0][0])
 
-    label = CLASS_LABELS[predicted_index] if predicted_index < len(CLASS_LABELS) else str(predicted_index)
+    if probability > settings.CONFIDENCE_THRESHOLD:
+        label = "PNEUMONIA"
+        confidence = probability
+    else:
+        label = "NORMAL"
+        confidence = 1.0 - probability
 
     return (label, round(confidence, 4))

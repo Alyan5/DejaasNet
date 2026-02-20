@@ -1,8 +1,6 @@
 # Dejaa'sNet Backend — FastAPI
 
-REST API service for plant disease classification. Accepts leaf images via a multipart upload endpoint and returns disease predictions with confidence scores using an EfficientNet-B0 model.
-
-**Deployed at:** [https://dejaasnet.onrender.com](https://dejaasnet.onrender.com)
+REST API service for chest X-ray pneumonia classification. Accepts X-ray images via a multipart upload endpoint and returns binary diagnosis (Normal / Pneumonia) with confidence scores, risk assessment, and recommendations using a DenseNet-121 model.
 
 ## Project Structure
 
@@ -19,7 +17,7 @@ backend/
     │   ├── router.py             # API route registry
     │   └── routes/
     │       ├── health.py         # Health check endpoint
-    │       └── prediction.py     # Disease prediction endpoint
+    │       └── prediction.py     # Prediction endpoint
     ├── schemas/
     │   └── prediction.py         # Pydantic response models
     ├── services/
@@ -27,9 +25,9 @@ backend/
     ├── models/
     │   ├── cnn_model.py          # Model loading and inference
     │   └── saved_models/
-    │       └── disease_model.keras
+    │       └── chest_check.keras
     └── utils/
-        └── preprocessing.py      # Image preprocessing pipeline
+        └── preprocessing.py      # X-ray preprocessing pipeline
 ```
 
 ## Setup
@@ -55,25 +53,26 @@ Interactive documentation (Swagger UI) is at `http://localhost:8000/docs`.
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/health` | Service health check |
-| POST | `/api/predict/` | Upload a leaf image for disease classification |
+| POST | `/api/predict/` | Upload a chest X-ray for pneumonia classification |
 
 ## Example
 
 ```bash
 curl -X POST "http://localhost:8000/api/predict/" \
   -H "Content-Type: multipart/form-data" \
-  -F "file=@leaf_image.jpg"
+  -F "file=@chest_xray.jpg"
 ```
 
 Response:
 
 ```json
 {
-  "label": "Tomato___Late_blight",
-  "confidence": 0.9742,
-  "plant": "Tomato",
-  "disease": "Late blight",
-  "is_healthy": false
+  "label": "PNEUMONIA",
+  "confidence": 0.9487,
+  "diagnosis": "Pneumonia Detected",
+  "is_normal": false,
+  "risk_level": "High",
+  "recommendation": "Strong indicators of pneumonia detected. Consult a healthcare professional immediately for clinical evaluation and treatment."
 }
 ```
 

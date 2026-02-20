@@ -1,8 +1,6 @@
-# Dejaa'sNet — Plant Disease Detection System
+# Dejaa'sNet — AI Pneumonia Detection from Chest X-Rays
 
-An AI-powered diagnostic tool that helps farmers, agronomists, and agricultural stakeholders identify plant diseases early through leaf image analysis. Built with a Convolutional Neural Network (EfficientNet-B0), Dejaa'sNet delivers instant, accurate disease classification along with actionable treatment recommendations — reducing crop losses and supporting informed decision-making in the field.
-
-**Live Demo:** [https://dejaas-net.vercel.app](https://dejaas-net.vercel.app)
+An AI-powered screening tool that detects pneumonia from chest X-ray images using a DenseNet-121 convolutional neural network. Dejaa'sNet provides instant binary classification (Normal vs Pneumonia) with confidence scoring, risk assessment, and actionable medical recommendations — supporting faster clinical decision-making and enabling screening in resource-limited settings.
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18-orange?logo=tensorflow&logoColor=white)
@@ -17,12 +15,10 @@ An AI-powered diagnostic tool that helps farmers, agronomists, and agricultural 
 - [The Problem](#the-problem)
 - [How Dejaa'sNet Helps](#how-dejaasnet-helps)
 - [Features](#features)
-- [Supported Crops and Diseases](#supported-crops-and-diseases)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
 - [API Reference](#api-reference)
 - [Model Details](#model-details)
-- [Deployment](#deployment)
 - [Tech Stack](#tech-stack)
 - [License](#license)
 
@@ -30,78 +26,67 @@ An AI-powered diagnostic tool that helps farmers, agronomists, and agricultural 
 
 ## The Problem
 
-Plant diseases are one of the leading causes of agricultural yield loss worldwide. According to the Food and Agriculture Organization (FAO), plant diseases cost the global economy over **$220 billion annually**, and up to **40% of global crop production** is lost to pests and diseases each year.
+Pneumonia is a leading cause of death worldwide, responsible for approximately **2.5 million deaths annually**, including over **670,000 children** under the age of five. Chest X-ray imaging is the primary diagnostic tool, but accurate interpretation requires trained radiologists — a resource that is scarce in many parts of the world.
 
-The challenge is particularly severe for:
+The challenge is particularly severe in:
 
-- **Smallholder farmers** who lack access to plant pathologists or laboratory diagnostics and often rely on visual guesswork, leading to misdiagnosis and ineffective treatment.
-- **Remote and underserved regions** where agricultural extension services are limited, leaving farmers without timely expert advice during critical growing seasons.
-- **Large-scale operations** where manual scouting across vast acreage is slow and expensive, allowing diseases to spread unchecked before they are identified.
+- **Developing countries** where the ratio of radiologists to population can be as low as 1 per million people, leaving vast numbers of X-rays unread or misinterpreted.
+- **Emergency departments** where high patient volumes create bottlenecks, delaying pneumonia diagnosis during critical treatment windows.
+- **Rural and remote clinics** that may have X-ray equipment but lack on-site specialists to interpret the images, forcing patients to travel long distances or wait days for results.
+- **Outbreak scenarios** where sudden surges in respiratory infections (influenza, COVID-19) overwhelm existing radiology capacity.
 
-Late or inaccurate diagnosis leads to unnecessary pesticide use, increased costs, environmental damage, and ultimately food insecurity.
+Delayed or missed diagnosis of pneumonia leads to disease progression, increased hospitalization, higher treatment costs, and preventable deaths.
 
 ---
 
 ## How Dejaa'sNet Helps
 
-Dejaa'sNet addresses these challenges by putting a trained plant pathology model directly into the hands of anyone with a smartphone or computer:
+Dejaa'sNet addresses these gaps by providing AI-assisted X-ray screening accessible through any web browser:
 
-- **Early Detection:** Identifies diseases from leaf images before visible damage escalates, giving farmers a critical window to act.
-- **Accessible Expertise:** Provides diagnostic capability equivalent to a trained agronomist, available 24/7 without the need for physical lab access or specialist consultations.
-- **Actionable Guidance:** Goes beyond identification — each diagnosis includes detailed symptoms, root causes, recommended treatments, and prevention strategies tailored to the specific disease.
-- **Cost Reduction:** Helps avoid blanket pesticide application by pinpointing the exact disease, reducing input costs and minimizing environmental impact.
-- **Scalable Impact:** A single deployment can serve thousands of users simultaneously, making it viable for agricultural cooperatives, government extension programs, and NGOs working in food security.
-
-Whether you are a farmer inspecting a few plants in the field, an agronomist advising clients remotely, or a researcher studying disease prevalence, Dejaa'sNet provides fast, reliable, and practical diagnostic support.
+- **Rapid Screening:** Analyzes a chest X-ray in under 3 seconds, enabling high-throughput triage in busy clinical environments.
+- **Accessible Anywhere:** Requires only an internet connection and an X-ray image — no specialized software or hardware needed.
+- **Confidence-Based Risk Assessment:** Provides a probability score and risk level (Low to High), helping clinicians prioritize cases that need urgent attention.
+- **Actionable Recommendations:** Each result includes context-specific guidance — from "continue regular checkups" for normal results to "consult a physician immediately" for high-confidence pneumonia detection.
+- **Clinical Decision Support:** Designed to augment — not replace — radiologist expertise. Serves as a second opinion or initial screening layer before formal radiology review.
+- **Scalable Deployment:** A single instance can serve thousands of concurrent users, making it suitable for hospital networks, public health programs, and telemedicine platforms.
 
 ---
 
 ## Features
 
-- **Real-time Disease Detection** — Upload a leaf image and receive a diagnosis within seconds.
-- **17 Disease Classes** — Covers diseases across Apple, Tomato, and Potato crops, including healthy leaf identification.
-- **Treatment Recommendations** — Each prediction is accompanied by detailed information on symptoms, causes, treatment options, and prevention measures.
-- **Confidence Thresholding** — Flags low-confidence predictions when non-leaf or ambiguous images are uploaded, preventing false diagnoses.
-- **Disease Library** — A searchable reference of all supported diseases with comprehensive agricultural information.
-- **Responsive Interface** — Fully functional on desktop, tablet, and mobile devices for use in the office or in the field.
-
----
-
-## Supported Crops and Diseases
-
-| Crop | Diseases | Classes |
-|------|----------|---------|
-| **Apple** | Apple Scab, Black Rot, Cedar Apple Rust, Healthy | 4 |
-| **Potato** | Early Blight, Late Blight, Healthy | 3 |
-| **Tomato** | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy | 10 |
-
-**Total: 17 classes across 3 crop types**
-
-The model is trained on the PlantVillage dataset and can be extended to support additional crops and diseases as training data becomes available.
+- **Binary Classification** — Classifies chest X-rays as Normal or Pneumonia with confidence percentage.
+- **Risk Level Assessment** — Assigns a risk level (Low, Moderate, High) based on prediction confidence.
+- **Medical Recommendations** — Provides tailored next-step guidance for each diagnosis outcome.
+- **Pneumonia Information** — Comprehensive reference on pneumonia types, symptoms, diagnosis methods, treatment, and prevention.
+- **Responsive Interface** — Works on desktop, tablet, and mobile for use in clinical or field settings.
+- **Medical Disclaimer** — Clearly communicates that results are AI-assisted and not a substitute for professional diagnosis.
 
 ---
 
 ## Architecture
 
-Dejaa'sNet uses the EfficientNet-B0 backbone with custom classification layers optimized for leaf disease recognition:
+Dejaa'sNet uses the DenseNet-121 backbone with a custom binary classification head:
 
 ```
-Input Image (224 x 224 x 3)
+Input X-Ray Image (224 x 224 x 3)
     |
-EfficientNet-B0 (Feature Extraction)
+Grayscale to 3-Channel Conversion
+    |
+DenseNet-121 (Feature Extraction)
     |
 Global Average Pooling
     |
 Dense + Dropout (Regularization)
     |
-Softmax Output (17 classes)
+Sigmoid Output (0 = Normal, 1 = Pneumonia)
 ```
 
 **Preprocessing Pipeline:**
-1. Convert to RGB (3 channels)
+1. Convert to grayscale (single channel)
 2. Resize to 224 x 224 using LANCZOS interpolation
-3. Normalize to float32
-4. Reshape to batch format (1, 224, 224, 3)
+3. Normalize pixel values to [0, 1]
+4. Stack grayscale to 3 channels (DenseNet-121 expects RGB input)
+5. Add batch dimension (1, 224, 224, 3)
 
 ---
 
@@ -127,13 +112,13 @@ DejaasNet/
 │       ├── models/
 │       │   ├── cnn_model.py          # Model loading and inference
 │       │   └── saved_models/
-│       │       └── disease_model.keras
+│       │       └── chest_check.keras
 │       ├── schemas/
 │       │   └── prediction.py         # Response schemas
 │       ├── services/
 │       │   └── prediction_service.py # Prediction business logic
 │       └── utils/
-│           └── preprocessing.py      # Image preprocessing pipeline
+│           └── preprocessing.py      # X-ray preprocessing pipeline
 │
 └── Frontend/
     ├── index.html
@@ -147,13 +132,11 @@ DejaasNet/
         ├── components/
         │   ├── Navbar.jsx            # Navigation
         │   ├── Hero.jsx              # Landing section
-        │   ├── UploadSection.jsx     # Image upload and analysis
+        │   ├── UploadSection.jsx     # X-ray upload and analysis
         │   ├── ResultCard.jsx        # Diagnosis result display
-        │   ├── DiseaseLibrary.jsx    # Disease reference browser
+        │   ├── DiseaseLibrary.jsx    # Pneumonia information reference
         │   ├── About.jsx             # About section
         │   └── Footer.jsx            # Footer
-        ├── data/
-        │   └── diseaseInfo.js        # Disease information database
         └── services/
             └── api.js                # API client
 ```
@@ -166,30 +149,31 @@ DejaasNet/
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/predict/` | Upload a leaf image for disease classification |
+| `POST` | `/api/predict/` | Upload a chest X-ray for pneumonia classification |
 | `GET` | `/api/health` | Service health check |
 
 ### Prediction Request
 
 ```bash
-curl -X POST "https://dejaasnet.onrender.com/api/predict/" \
+curl -X POST "http://localhost:8000/api/predict/" \
   -H "Content-Type: multipart/form-data" \
-  -F "file=@leaf_image.jpg"
+  -F "file=@chest_xray.jpg"
 ```
 
 ### Prediction Response
 
 ```json
 {
-  "label": "Tomato___Late_blight",
-  "confidence": 0.9742,
-  "plant": "Tomato",
-  "disease": "Late blight",
-  "is_healthy": false
+  "label": "PNEUMONIA",
+  "confidence": 0.9487,
+  "diagnosis": "Pneumonia Detected",
+  "is_normal": false,
+  "risk_level": "High",
+  "recommendation": "Strong indicators of pneumonia detected. Consult a healthcare professional immediately for clinical evaluation and treatment."
 }
 ```
 
-Full interactive API documentation (Swagger UI) is available at the `/docs` endpoint of the backend.
+Full interactive API documentation (Swagger UI) is available at the `/docs` endpoint.
 
 ---
 
@@ -197,26 +181,13 @@ Full interactive API documentation (Swagger UI) is available at the `/docs` endp
 
 | Property | Value |
 |----------|-------|
-| **Architecture** | EfficientNet-B0 + Custom Classification Head |
-| **Input Size** | 224 x 224 x 3 |
-| **Output** | 17-class softmax |
+| **Architecture** | DenseNet-121 + Custom Classification Head |
+| **Input Size** | 224 x 224 x 3 (grayscale stacked to 3 channels) |
+| **Output** | Sigmoid (binary: Normal vs Pneumonia) |
 | **Framework** | TensorFlow / Keras |
 | **Model Format** | `.keras` |
-| **Test Accuracy** | ~95% |
-| **Training Data** | PlantVillage Dataset |
-
----
-
-## Deployment
-
-The application is deployed as two independent services:
-
-| Component | Platform | URL |
-|-----------|----------|-----|
-| **Frontend** | Vercel | [https://dejaas-net.vercel.app](https://dejaas-net.vercel.app) |
-| **Backend API** | Render | [https://dejaasnet.onrender.com](https://dejaasnet.onrender.com) |
-
-**Note:** The backend runs on Render's free tier, which spins down after periods of inactivity. The first request after inactivity may take up to 50 seconds while the service restarts.
+| **Accuracy** | ~95% |
+| **Key Metrics** | AUC, Recall, Precision |
 
 ---
 
@@ -224,7 +195,7 @@ The application is deployed as two independent services:
 
 **Backend:**
 - Python, FastAPI, Uvicorn
-- TensorFlow / Keras (EfficientNet-B0)
+- TensorFlow / Keras (DenseNet-121)
 - Pillow, NumPy
 - Pydantic
 
@@ -242,5 +213,5 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 <p align="center">
-  Built by <strong>Dejaa</strong> — Powered by Deep Learning for Agriculture
+  Built by <strong>Dejaa</strong> — Powered by Dejaa'sNet Deep Learning for Medical Imaging
 </p>

@@ -6,4 +6,4 @@ router = APIRouter()
 @router.get("/health")
 async def health_check():
     """Check if the API is running."""
-    return {"status": "healthy", "message": "CNN Backend is running"}
+    return {"status": "healthy", "message": "Dejaa'sNet API is running"}
