@@ -189,35 +189,39 @@ const UploadSection = () => {
           </div>
 
           <div className="upload-section__right">
-            {result && result._lowConfidence ? (
-              <div className="upload-section__low-confidence">
-                <div className="upload-section__low-confidence-icon">⚠️</div>
-                <h3>Inappropriate Image</h3>
-                <p>The uploaded image does not appear to be a valid chest X-ray. The model could not make a confident diagnosis.</p>
-                <div className="upload-section__low-confidence-tips">
-                  <h4>Please try again with:</h4>
-                  <ul>
-                    <li>A clear, standard PA chest X-ray image</li>
-                    <li>Proper orientation (not rotated or cropped)</li>
-                    <li>Good contrast and resolution</li>
-                    <li>No CT scans, MRIs, or non-chest images</li>
-                  </ul>
-                </div>
-                <button className="btn btn--primary" onClick={handleReset}>
-                  <span>🔄</span> Upload Another Image
-                </button>
-              </div>
-            ) : result ? (
+            {result && !result._lowConfidence ? (
               <ResultCard result={result} onReset={handleReset} />
             ) : (
               <div className="upload-section__placeholder-result">
-                <div className="upload-section__placeholder-icon">🏥</div>
-                <h3>Awaiting Analysis</h3>
-                <p>Upload a chest X-ray image and click "Analyze" to get your pneumonia screening result powered by Dejaa'sNet AI.</p>
-                <div className="upload-section__arch-info">
-                  <h4>🧬 About Dejaa'sNet Architecture</h4>
-                  <p>Built on DenseNet-121 backbone with custom classification layers, trained on thousands of chest X-ray images for accurate pneumonia detection.</p>
-                </div>
+                {result && result._lowConfidence ? (
+                  <>
+                    <div className="upload-section__placeholder-icon">⚠️</div>
+                    <h3>Inappropriate Image</h3>
+                    <p>The uploaded image does not appear to be a valid chest X-ray. The model could not make a confident diagnosis.</p>
+                    <div className="upload-section__arch-info">
+                      <h4>Please try again with:</h4>
+                      <ul style={{ textAlign: 'left', marginTop: '0.5rem' }}>
+                        <li>A clear, standard PA chest X-ray image</li>
+                        <li>Proper orientation (not rotated or cropped)</li>
+                        <li>Good contrast and resolution</li>
+                        <li>No CT scans, MRIs, or non-chest images</li>
+                      </ul>
+                    </div>
+                    <button className="btn btn--primary" onClick={handleReset} style={{ marginTop: '1rem' }}>
+                      <span>🔄</span> Upload Another Image
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="upload-section__placeholder-icon">🏥</div>
+                    <h3>Awaiting Analysis</h3>
+                    <p>Upload a chest X-ray image and click "Analyze" to get your pneumonia screening result powered by Dejaa'sNet AI.</p>
+                    <div className="upload-section__arch-info">
+                      <h4>🧬 About Dejaa'sNet Architecture</h4>
+                      <p>Built on DenseNet-121 backbone with custom classification layers, trained on thousands of chest X-ray images for accurate pneumonia detection.</p>
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>
