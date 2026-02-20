@@ -1,6 +1,6 @@
 from app.schemas.prediction import PredictionResponse
 from app.models import cnn_model
-from app.utils.preprocessing import preprocess_image
+from app.utils.preprocessing import preprocess_image, is_xray_image
 
 
 def _get_risk_level(confidence: float, is_normal: bool) -> str:
@@ -39,6 +39,9 @@ def _get_recommendation(label: str, confidence: float) -> str:
 
 def predict(image_bytes: bytes) -> PredictionResponse:
     """Take raw image bytes, preprocess, predict, return result."""
+    if not is_xray_image(image_bytes):
+        raise ValueError("The uploaded image does not appear to be a chest X-ray. Please upload a valid chest X-ray image.")
+
     img_array = preprocess_image(image_bytes)
     label, confidence = cnn_model.predict(img_array)
 
