@@ -70,15 +70,19 @@ Dejaa'sNet uses the DenseNet-121 backbone with a custom binary classification he
 ```
 Input X-Ray Image (224 x 224 x 3)
     |
-Grayscale to 3-Channel Conversion
+Data Augmentation (RandomFlip, RandomRotation, RandomZoom)
+    |
+DenseNet-121 Preprocessing (Lambda)
     |
 DenseNet-121 (Feature Extraction)
     |
 Global Average Pooling
     |
-Dense + Dropout (Regularization)
+Dense — 128 neurons, ReLU activation
     |
-Sigmoid Output (0 = Normal, 1 = Pneumonia)
+Dropout (Regularization)
+    |
+Dense — 1 neuron, Sigmoid Output (0 = Normal, 1 = Pneumonia)
 ```
 
 **Preprocessing Pipeline:**
