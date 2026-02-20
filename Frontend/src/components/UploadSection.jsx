@@ -64,7 +64,7 @@ const UploadSection = () => {
 
     try {
       const data = await predictDisease(selectedFile);
-      if (data.confidence < 0.5) {
+      if (data.confidence < 0.75) {
         setResult({ _lowConfidence: true });
       } else {
         setResult(data);
