@@ -1,5 +1,6 @@
 import numpy as np
 from tensorflow import keras
+from tensorflow.keras.applications.densenet import preprocess_input
 from pathlib import Path
 from app.core.config import settings
 
@@ -11,7 +12,10 @@ CLASS_LABELS = ["NORMAL", "PNEUMONIA"]
 model_path = Path(settings.MODEL_PATH) / "chest_check.keras"
 
 if model_path.exists():
-    model = keras.models.load_model(str(model_path))
+    model = keras.models.load_model(
+        str(model_path),
+        custom_objects={"preprocess_input": preprocess_input},
+    )
 else:
     model = None
 
