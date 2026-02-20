@@ -74,7 +74,7 @@ Data Augmentation (RandomFlip, RandomRotation, RandomZoom)
     |
 DenseNet-121 Preprocessing (Lambda)
     |
-DenseNet-121 (Feature Extraction)
+DenseNet-121 (Fine Tune)
     |
 Global Average Pooling
     |
